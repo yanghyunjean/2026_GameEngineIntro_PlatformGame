@@ -25,9 +25,11 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("PlayScene" + collision.name);
         }
 
-        if (collision.name == "Door")
-            {
-            SceneManager.LoadScene("PlayScene2");
+        Door door = collision.GetComponent<Door>();
+
+        if (door != null)
+        {
+            SceneManager.LoadScene(door.sceneName);
         }
     }
 
