@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
+    private Animator pAni;
     private bool isGrounded;
     private float moveInput;
 
+    private bool isGiant = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Death")
+        if (collision.CompareTag("Respawn"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -24,6 +28,18 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("PlayScene" + collision.name);
         }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (collision.CompareTag("Item"))
+        {
+            isGiant = true;
+            Destroy(collision.gameObject);
+        }
+
 
         Door door = collision.GetComponent<Door>();
 
@@ -38,7 +54,8 @@ public class PlayerController : MonoBehaviour
 private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        moveInput = 0f;
+        
+        pAni = GetComponent<Animator>();
     }
 
     private void Update()
@@ -48,12 +65,19 @@ private void Awake()
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
+        if (moveInput > 0)
+            transform.localScale = new Vector3(3, 3, 3);
+        else if (moveInput < 0)
+            transform.localScale = new Vector3(-3, 3 , 3);
     }
 
     public void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
         moveInput = input.x;
+
+        pAni.SetTrigger("DashAction");
     }
 
     public void OnJump(InputValue value)
@@ -62,7 +86,9 @@ private void Awake()
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+          
         }
     }
+    
 
 }
