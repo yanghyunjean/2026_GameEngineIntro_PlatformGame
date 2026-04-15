@@ -67,9 +67,9 @@ private void Awake()
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (moveInput > 0)
-            transform.localScale = new Vector3(3, 3, 3);
+            transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0)
-            transform.localScale = new Vector3(-3, 3 , 3);
+            transform.localScale = new Vector3(-1, 1 , 1);
     }
 
     public void OnMove(InputValue value)
