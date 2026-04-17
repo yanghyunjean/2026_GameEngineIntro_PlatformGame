@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyTraceController : MonoBehaviour
 {
     public float moveSpeed = 0.5f;
     public float raycastDistance = 0.2f;
     public float traceDistance = 2f;
-
+    private int moveDirection = 1;
     private Transform player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,10 +15,20 @@ public class EnemyTraceController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player"). transform;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            moveDirection *= -1; // 방향 반전
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        
+
+
         Vector2 direction = player.position - transform.position;
 
         if (direction.magnitude > traceDistance)
@@ -36,7 +47,7 @@ public class EnemyTraceController : MonoBehaviour
             }
             else
             {
-                transform.Translate(direction * moveSpeed * Time.deltaTime);
+                transform.Translate(direction * moveDirection * moveSpeed * Time.deltaTime);
             }
         }
     }

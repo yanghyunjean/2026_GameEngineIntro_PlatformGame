@@ -20,6 +20,16 @@ public class EnemtController : MonoBehaviour
             rb.linearVelocity = new Vector2(moveSpeed,rb.linearVelocity.y);
         else
             rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
+
+
+        if (isMovingRight)
+        {
+            transform.localScale = new Vector3(-1.3f, 1.4f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1.3f, 1.4f , 1);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
