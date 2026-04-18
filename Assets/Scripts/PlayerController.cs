@@ -14,44 +14,59 @@ public class PlayerController : MonoBehaviour
     private Animator pAni;
     private bool isGrounded;
     private float moveInput;
+    
+    //2초동안 무적아이템
+    private bool isInvincible = false;
+    public float invincibleTime = 2f;
 
-    private bool isGiant = false;
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Respawn"))
+        
+        if (collision.CompareTag("Item"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            isInvincible = true;
+            Invoke(nameof(ResetInvincible), 3f);
+            Destroy(collision.gameObject);
+            return; 
         }
-
-        else
-        {
-            SceneManager.LoadScene("PlayScene" + collision.name);
-        }
+        
 
         if (collision.CompareTag("Enemy"))
         {
+            
+
+            if (isInvincible) return;
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
         }
 
-        if (collision.CompareTag("Item"))
+        
+        if (collision.CompareTag("Respawn"))
         {
-            isGiant = true;
-            Destroy(collision.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
         }
 
-
+        
         Door door = collision.GetComponent<Door>();
-
         if (door != null)
         {
             SceneManager.LoadScene(door.sceneName);
+            return;
         }
     }
 
+    void ResetInvincible()
+    {
+        isInvincible = false;
+    }
 
 
-private void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         

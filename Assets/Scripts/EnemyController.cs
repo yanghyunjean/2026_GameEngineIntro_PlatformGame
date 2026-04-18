@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class EnemtController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    public float moveSpeed = 2f;
 
     private Rigidbody2D rb;
     private bool isMovingRight = true;
