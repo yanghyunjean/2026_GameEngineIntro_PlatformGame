@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 133778070}
   m_Layer: 0
   m_Name: Death_item (1)
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -613,6 +613,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   invincibleTime: 2
+  DashTime: 2
+  jumpTime: 2
 --- !u!212 &342259000
 SpriteRenderer:
   serializedVersion: 2
@@ -824,7 +826,7 @@ GameObject:
   - component: {fileID: 549858273}
   m_Layer: 0
   m_Name: Death_item (4)
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1145,7 +1147,7 @@ GameObject:
   - component: {fileID: 987297097}
   m_Layer: 0
   m_Name: Death_item
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1421,7 +1423,7 @@ GameObject:
   - component: {fileID: 1363613068}
   m_Layer: 0
   m_Name: Death_item (2)
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1559,7 +1561,7 @@ GameObject:
   - component: {fileID: 1378956554}
   m_Layer: 0
   m_Name: Death_item
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1697,7 +1699,7 @@ GameObject:
   - component: {fileID: 1597884378}
   m_Layer: 0
   m_Name: Death_item (3)
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1835,7 +1837,7 @@ GameObject:
   - component: {fileID: 1842457497}
   m_Layer: 0
   m_Name: Death_item
-  m_TagString: Enemy
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

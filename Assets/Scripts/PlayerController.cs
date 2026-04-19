@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
+    public float moveSpeed = 2.5f;
+    public float jumpForce = 4.9f;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
@@ -18,6 +18,15 @@ public class PlayerController : MonoBehaviour
     //2초동안 무적아이템
     private bool isInvincible = false;
     public float invincibleTime = 2f;
+
+    //2초동안 속도 증가 아이템
+    private bool isDash = false;
+    public float DashTime = 2f;
+
+    private bool isJump = false;
+    public float jumpTime = 2f;
+    private float originalSpeed;
+    private float originalJumpForce;
 
 
 
@@ -32,21 +41,57 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             return; 
         }
-        
+
+        if (collision.CompareTag("Item_fast"))
+        {
+            isDash = true;
+            moveSpeed = originalSpeed * 2f; // 속도 증가
+            Invoke(nameof(ResetDash), 3f);
+            Destroy(collision.gameObject);
+            return;
+        }
+
+        if (collision.CompareTag("Item_Jump"))
+        {
+            isJump = true;
+            jumpForce = originalJumpForce * 4f; // 점프력 증가
+            Invoke(nameof(ResetJump), 3f);
+            Destroy(collision.gameObject);
+            return;
+        }
+
 
         if (collision.CompareTag("Enemy"))
         {
-            
+            if (rb.linearVelocity.y < 0)
+            {
+                BossController boss = collision.gameObject.GetComponent<BossController>();
 
-            if (isInvincible) return;
+                if (boss != null)
+                {
+                    boss.TakeDamage(); // 체력 감소
+                }
+                else
+                {
+                    Destroy(collision.gameObject); // 일반 적
+                }
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            return;
+
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 0.7f);
+            }
+            else
+            {
+                // 옆이나 위에서 닿으면 죽음
+                if (isInvincible) return;
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
         
         if (collision.CompareTag("Respawn"))
         {
+            if (isInvincible) return;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
@@ -65,12 +110,28 @@ public class PlayerController : MonoBehaviour
         isInvincible = false;
     }
 
+    void ResetDash()
+    {
+        isDash = false;
+        moveSpeed = originalSpeed; // 원래 속도로 복원
+    }
+
+    void ResetJump()
+    {
+        isJump = false;
+        jumpForce = originalJumpForce; // 원래 점프력으로 복원
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         
         pAni = GetComponent<Animator>();
+
+           originalSpeed = moveSpeed;   
+        originalJumpForce = jumpForce;
+
+
     }
 
     private void Update()
