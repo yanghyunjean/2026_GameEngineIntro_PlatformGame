@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float DashTime = 2f;
 
     private bool isJump = false;
-    public float jumpTime = 2f;
+    public float jumpTime = 5f;
     private float originalSpeed;
     private float originalJumpForce;
 
@@ -69,13 +69,15 @@ public class PlayerController : MonoBehaviour
 
                 if (boss != null)
                 {
-                    boss.TakeDamage(); // 체력 감소
+                    if(isJump)
+                    {
+                        boss.TakeDamage(999); // 체력 감소
+                    } 
+                    else
+                    {
+                        boss.TakeDamage(1); // 일반 적
+                    }
                 }
-                else
-                {
-                    Destroy(collision.gameObject); // 일반 적
-                }
-
 
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 0.7f);
             }

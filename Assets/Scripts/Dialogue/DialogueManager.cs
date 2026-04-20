@@ -7,18 +7,27 @@ public class DialogueManager : MonoBehaviour
 {
     public GameObject dialogueUI;
     public TextMeshProUGUI dialogueText;
+    public GameObject characterImage;
 
     private string[] dialogues;
     private int currentIndex;
     private bool isLastLine = false;
+    private bool isPlaying = false;
 
     public void StartDialogue(string[] lines)
     {
+
+        if (isPlaying) return;
+
         dialogues = lines;
         currentIndex = 0;
         isLastLine = false;
 
         dialogueUI.SetActive(true);
+        if (characterImage != null)
+            characterImage.SetActive(true);
+
+
         ShowLine();
     }
 
@@ -48,6 +57,11 @@ public class DialogueManager : MonoBehaviour
 
         dialogueUI.SetActive(false);
         isLastLine = false;
+
+        if (characterImage != null)
+            characterImage.SetActive(false);
+
+        isPlaying = false;
     }
 
     void Update()

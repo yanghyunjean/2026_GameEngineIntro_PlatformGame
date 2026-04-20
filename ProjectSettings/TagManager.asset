@@ -10,6 +10,7 @@ TagManager:
   - Item
   - Item_fast
   - Item_Jump
+  - Item_Memory
   layers:
   - Default
   - TransparentFX

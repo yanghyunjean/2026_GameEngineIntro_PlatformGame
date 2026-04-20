@@ -10,7 +10,11 @@ public class BossController : MonoBehaviour
 
     public int maxHp = 5;
     private int currentHp;
-    
+    public GameObject dropItemPrefab;
+
+    public Outro outro; // 보스가 죽을 때 아웃트로 대사를 시작하기 위한 참조
+
+
     private void Start()
     {
         currentHp = maxHp;
@@ -18,20 +22,40 @@ public class BossController : MonoBehaviour
     }
 
 
-    public void TakeDamage()
+    public void TakeDamage(int Damage)
     {
-        currentHp--;
+        currentHp -= Damage;
 
         if (currentHp <= 0)
         {
             Die();
         }
+    }
 
         void Die()
         {
-            Destroy(gameObject);
+
+      
+
+
+        if (dropItemPrefab != null)
+            {
+                Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
+            }
+
+        if (outro != null)
+        {
+            outro.PlayOutro(); 
         }
-    }
+        else
+        {
+            Debug.Log("outro null임"); 
+        }
+
+        Destroy(gameObject);
+        }
+
+      
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,7 +65,8 @@ public class BossController : MonoBehaviour
         }
     }
 
-   
+
+
     // Update is called once per frame
     void Update()
     {
