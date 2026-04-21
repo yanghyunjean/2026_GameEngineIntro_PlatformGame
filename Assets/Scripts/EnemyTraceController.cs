@@ -5,7 +5,7 @@ public class EnemyTraceController : MonoBehaviour
 {
     public float moveSpeed = 0.8f;
     public float raycastDistance = 3f;
-    public float traceDistance = 2f;
+    public float traceDistance = 3f;
     
     private Transform player;
 

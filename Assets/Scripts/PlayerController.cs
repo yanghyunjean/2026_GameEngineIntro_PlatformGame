@@ -71,11 +71,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if(isJump)
                     {
-                        boss.TakeDamage(999); // 체력 감소
+                        boss.TakeDamage(999);
                     } 
                     else
                     {
-                        boss.TakeDamage(1); // 일반 적
+                        boss.TakeDamage(1);
                     }
                 }
 
