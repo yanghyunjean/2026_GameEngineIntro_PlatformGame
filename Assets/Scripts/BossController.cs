@@ -12,7 +12,7 @@ public class BossController : MonoBehaviour
     private int currentHp;
     public GameObject dropItemPrefab;
 
-    public Outro outro; // 보스가 죽을 때 아웃트로 대사를 시작하기 위한 참조
+    public Outro outro; // 보스가 죽을 때 아웃트로 대사를 시작
 
 
     private void Start()
@@ -34,25 +34,15 @@ public class BossController : MonoBehaviour
 
         void Die()
         {
-
-      
-
-
         if (dropItemPrefab != null)
-            {
-                Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
-            }
-
-        if (outro != null)
         {
-            outro.PlayOutro(); 
-        }
-        else
-        {
-            Debug.Log("outro null임"); 
-        }
+            Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
+            Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
 
+        }
+       
         Destroy(gameObject);
+
         }
 
       

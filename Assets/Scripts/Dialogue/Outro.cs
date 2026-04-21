@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Outro : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class Outro : MonoBehaviour
         "곧 애너지가 다해 나 또한 다시 꺼지겠지만,",
         "언젠가.. 다시 켜지는 날이 있다면.. ",
         "너희를 기억하겠다."
+        };
+
+        dialogueManager.onDialogueEnd = () =>
+        {
+            SceneManager.LoadScene("MainTitle");
         };
 
         dialogueManager.StartDialogue(lines);

@@ -6,6 +6,7 @@ public class Intro : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("인트로 실행됨");
         string[] lines = {
             "시스템 오류 발생. 재부팅 시도",
             "..2XXX년 X월 X일.日日日日동, 날씨 ....  ",

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private float originalSpeed;
     private float originalJumpForce;
 
-
+    public Outro outro;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,6 +56,20 @@ public class PlayerController : MonoBehaviour
             isJump = true;
             jumpForce = originalJumpForce * 4f; // 점프력 증가
             Invoke(nameof(ResetJump), 3f);
+            Destroy(collision.gameObject);
+            return;
+        }
+
+        if (collision.CompareTag("Item_Memory"))
+        {
+
+            Debug.Log("메모리 아이템 먹음");
+            if (outro != null)
+            {
+                Debug.Log("아웃트로 실행");
+                outro.PlayOutro();
+            }
+
             Destroy(collision.gameObject);
             return;
         }
