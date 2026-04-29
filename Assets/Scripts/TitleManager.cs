@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class TitleManager : MonoBehaviour
 {
     public GameObject helpPanel;
+    public GameObject LeaderBoard;
     public void GameStart()
     {
         SceneManager.LoadScene("PlayScene");
@@ -14,6 +15,12 @@ public class TitleManager : MonoBehaviour
 
     }
 
+    public void OpenLeaderBoard()
+    {
+        LeaderBoard.SetActive(true);
+
+    }
+
     void Start() //처음에 꺼져있게
     {
         helpPanel.SetActive(false);
@@ -21,6 +28,12 @@ public class TitleManager : MonoBehaviour
 
         if (helpPanel != null)
             helpPanel.SetActive(false);
+
+        LeaderBoard.SetActive(false);
+
+
+        if (LeaderBoard != null)
+            LeaderBoard.SetActive(false);
     }
 
     public void CloseHelp()
@@ -38,6 +51,13 @@ public class TitleManager : MonoBehaviour
         Debug.Log("게임 종료");
         Application.Quit();
     }
+
+    public void closeLeaderBoard()
+    {
+        LeaderBoard.SetActive(false);
+    }
+
+   
 
     public void LoadTitle()
     {

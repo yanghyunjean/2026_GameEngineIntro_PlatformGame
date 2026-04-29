@@ -30,16 +30,25 @@ public class PlayerController : MonoBehaviour
 
     public Outro outro;
 
+    float score;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         
+
+
         if (collision.CompareTag("Item"))
         {
             isInvincible = true;
             Invoke(nameof(ResetInvincible), 3f);
             Destroy(collision.gameObject);
-            return; 
+            score += 10f;
+
+            Debug.Log("아이템 먹음");
+
+            return;
+
         }
 
         if (collision.CompareTag("Item_fast"))
@@ -66,7 +75,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("메모리 아이템 먹음");
             if (outro != null)
             {
-                Debug.Log("아웃트로 실행");
+                Debug.Log("아웃트로 실행"); 
+               
+
                 outro.PlayOutro();
             }
 
@@ -112,10 +123,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        
+
         Door door = collision.GetComponent<Door>();
         if (door != null)
         {
+            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
             SceneManager.LoadScene(door.sceneName);
             return;
         }
@@ -143,6 +155,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         
         pAni = GetComponent<Animator>();
+        score = 0f;
 
            originalSpeed = moveSpeed;   
         originalJumpForce = jumpForce;

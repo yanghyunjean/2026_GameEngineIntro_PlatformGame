@@ -1,12 +1,15 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Outro : MonoBehaviour
 {
     public DialogueManager dialogueManager;
 
     private bool hasPlayed = false;
+
+    float score;
 
     public void PlayOutro() 
     {
@@ -32,6 +35,8 @@ public class Outro : MonoBehaviour
         dialogueManager.onDialogueEnd = () =>
         {
             SceneManager.LoadScene("MainTitle");
+
+            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
         };
 
         dialogueManager.StartDialogue(lines);
