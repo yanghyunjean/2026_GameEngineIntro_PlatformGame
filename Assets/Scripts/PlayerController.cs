@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             Invoke(nameof(ResetInvincible), 3f);
             Destroy(collision.gameObject);
-            score += 10f;
-
+            //score += 10f;
+            StageResultSaver.SaveStage(SceneManager.GetActiveScene().buildIndex, (int)score);
             Debug.Log("æ∆¿Ã≈€ ∏‘¿Ω");
 
             return;
@@ -127,9 +127,13 @@ public class PlayerController : MonoBehaviour
         Door door = collision.GetComponent<Door>();
         if (door != null)
         {
-            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
+            StageResultSaver.SaveStage(SceneManager.GetActiveScene().buildIndex, (int)score);
+
+            
+           
             SceneManager.LoadScene(door.sceneName);
             return;
+           
         }
     }
 
