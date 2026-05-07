@@ -5,6 +5,7 @@ public class TitleManager : MonoBehaviour
 {
     public GameObject helpPanel;
     public GameObject LeaderBoard;
+    public GameObject Ranking;
     public void GameStart()
     {
         SceneManager.LoadScene("PlayScene");
@@ -21,6 +22,12 @@ public class TitleManager : MonoBehaviour
 
     }
 
+    public void OpenRanking()
+    {
+        Ranking.SetActive(true);
+
+    }
+
     void Start() //처음에 꺼져있게
     {
         helpPanel.SetActive(false);
@@ -34,6 +41,11 @@ public class TitleManager : MonoBehaviour
 
         if (LeaderBoard != null)
             LeaderBoard.SetActive(false);
+
+        Ranking.SetActive(false);
+
+        if (Ranking != null)
+            Ranking.SetActive(false);
     }
 
     public void CloseHelp()
@@ -57,7 +69,12 @@ public class TitleManager : MonoBehaviour
         LeaderBoard.SetActive(false);
     }
 
-   
+    public void closeRanking()
+    {
+        Ranking.SetActive(false);
+    }
+
+
 
     public void LoadTitle()
     {

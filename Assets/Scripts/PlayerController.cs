@@ -42,9 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             isInvincible = true;
             Invoke(nameof(ResetInvincible), 3f);
+
+            score += collision.GetComponent<ItemObject>().GetPoint();
+
             Destroy(collision.gameObject);
-            //score += 10f;
-            StageResultSaver.SaveStage(SceneManager.GetActiveScene().buildIndex, (int)score);
+
+            Debug.Log($"현재 점수 : {score}");
+
             Debug.Log("아이템 먹음");
 
             return;
